@@ -18,6 +18,31 @@ reached from one address instead of five bookmarks.
 The page holds no data and no credentials, only links. It carries `noindex`, so it
 does not turn up in search results.
 
+## Last-updated dates
+
+The four Pages dashboards are served from the same origin as this hub
+(`joshua-bailey.github.io`), so the page can issue a same-origin `HEAD` request to each
+and read the `Last-Modified` header, which is when GitHub Pages last published that
+site. This runs on every page load, so the dates cannot go stale, and it needs no API
+key, no rate-limit budget and no build step. `HEAD` means the multi-megabyte dashboard
+bodies are never downloaded.
+
+Each card keeps its cadence text ("Updated weekly") in the HTML as a fallback. The
+script overwrites it only on a successful lookup, so with JavaScript off, a failed
+fetch, or a site moved off this origin, the page degrades to the old wording instead of
+showing a blank or a wrong date.
+
+Two limits worth knowing:
+
+- **The workbook has no date.** It is on `onrender.com`, a different origin that sends
+  no CORS header, so its headers cannot be read from here. It is a live app that
+  recomputes when opened, so it is labelled `Live · recomputes on open` rather than
+  given a misleading timestamp.
+- **Publish time is not data vintage.** `Last-Modified` is when the site was rebuilt,
+  which for these dashboards is normally the same day the data was refreshed, but the
+  two are not the same thing. The footer says so, and the authoritative "as of" date is
+  inside each tool.
+
 ## Editing
 
 `index.html` is the whole site. Edit it, commit, push; Pages redeploys in a minute or
