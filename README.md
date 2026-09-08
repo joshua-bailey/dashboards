@@ -13,7 +13,6 @@ reached from one address instead of five bookmarks.
 | US GDP Nowcast | https://joshua-bailey.github.io/gdp-nowcast/ | Pages |
 | Nonfarm Payrolls Nowcast | https://joshua-bailey.github.io/nfp-nowcast/ | Pages, tagged **alpha** |
 | FX Forecast Dashboard | https://joshua-bailey.github.io/fx-forecast-dashboard/ | Pages |
-| US Labour Market Dashboard | https://joshua-bailey.github.io/labour-market-dashboard/ | Pages |
 
 The page holds no data and no credentials, only links. It carries `noindex`, so it
 does not turn up in search results.
