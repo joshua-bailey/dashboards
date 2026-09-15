@@ -104,7 +104,7 @@ footer p{margin:0 0 4px}
   <div class="kicker">US Macro · Models &amp; Dashboards</div>
   <h1>Forecasting tools</h1>
   <p class="sub">A single entry point to the live forecasting and monitoring tools.
-  Each opens in a new tab. The date on each card is when that tool was last republished,
+  Each opens in a new tab. The date on each card is when that tool was last updated,
   checked at the moment this page loads.</p>
   <div class="rule"></div>
 </header>
@@ -131,11 +131,13 @@ footer p{margin:0 0 4px}
   <span class="arrow">&rsaquo;</span>
   <div class="top">
     <span class="name">US GDP Nowcast</span>
+    <span class="tag lock">Password</span>
   </div>
   <p class="desc">Current-quarter real GDP growth from a dynamic factor model, with the
   contribution of each data release to the latest move.</p>
   <div class="meta">
-    <span class="upd" data-src="/gdp-nowcast/">Updated weekly</span>
+    <span class="upd" data-src="/gdp-nowcast/"
+          data-updated="2026-09-11T22:40:04Z" data-republished="2026-09-15T21:03:13Z">Updated weekly</span>
     <span class="dot">·</span>
     <span>joshua-bailey.github.io/gdp-nowcast</span>
   </div>
@@ -146,12 +148,14 @@ footer p{margin:0 0 4px}
   <div class="top">
     <span class="name">Nonfarm Payrolls Nowcast</span>
     <span class="tag wip">Alpha · in development</span>
+    <span class="tag lock">Password</span>
   </div>
   <p class="desc">Next month&rsquo;s payrolls print from a six-model ensemble, plus an implied
   benchmarked figure that adds a modelled QCEW revision. Backtested on true vintages.
   Still being validated: treat the numbers as indicative, not settled.</p>
   <div class="meta">
-    <span class="upd" data-src="/nfp-nowcast/">Updated ahead of each employment situation</span>
+    <span class="upd" data-src="/nfp-nowcast/"
+          data-updated="2026-09-02T16:26:53Z" data-republished="2026-09-15T21:00:51Z">Updated ahead of each employment situation</span>
     <span class="dot">·</span>
     <span>joshua-bailey.github.io/nfp-nowcast</span>
   </div>
@@ -161,12 +165,14 @@ footer p{margin:0 0 4px}
   <span class="arrow">&rsaquo;</span>
   <div class="top">
     <span class="name">FX Forecast Dashboard</span>
+    <span class="tag lock">Password</span>
   </div>
   <p class="desc">EUR/USD, USD/JPY and GBP/USD: the house forecast set against model-implied
   paths from uncovered interest parity, real-rate parity and carry, so you can see where the
   view sits relative to the mechanics.</p>
   <div class="meta">
-    <span class="upd" data-src="/fx-forecast-dashboard/">Updated with the forecast round</span>
+    <span class="upd" data-src="/fx-forecast-dashboard/"
+          data-updated="2026-08-17T22:58:59Z" data-republished="2026-09-15T21:02:26Z">Updated with the forecast round</span>
     <span class="dot">·</span>
     <span>joshua-bailey.github.io/fx-forecast-dashboard</span>
   </div>
@@ -184,18 +190,19 @@ footer p{margin:0 0 4px}
   bilateral rates for every trading partner and rates by HS chapter. Links to the full time
   series for download.</p>
   <div class="meta">
-    <span class="upd" data-src="/watr-dashboard/">Updated as measures are announced</span>
+    <span class="upd" data-src="/watr-dashboard/"
+          data-updated="2026-08-26T17:03:52Z" data-republished="2026-09-08T15:27:24Z">Updated as measures are announced</span>
     <span class="dot">·</span>
     <span>joshua-bailey.github.io/watr-dashboard</span>
   </div>
 </a>
 
 <footer>
-  <p>The workbook and the tariff dashboard need the shared login; the four other
-  dashboards open directly.</p>
-  <p>Dates show when a dashboard was last rebuilt and published, which is normally the
-  same day its data was refreshed. The vintage of the underlying data is stated inside
-  each tool.</p>
+  <p>Every tool needs a password. The four dashboards share one password, and the
+  workbook has its own login.</p>
+  <p>Dates show when a dashboard was last published with new content, which is normally
+  the same day its data was refreshed. The vintage of the underlying data is stated
+  inside each tool.</p>
   <p>Joshua Bailey</p>
 </footer>
 
@@ -204,7 +211,11 @@ footer p{margin:0 0 4px}
 <script>
 /* Each dashboard is served from this same origin, so a HEAD request can read its
    Last-Modified header: the time GitHub Pages last published it. No API key, no rate
-   limit, no build step. If a lookup fails the static cadence text is left in place. */
+   limit, no build step. If a lookup fails the static cadence text is left in place.
+
+   A site can be rebuilt without new content (for example when a password was added).
+   data-republished holds the Last-Modified of that rebuild, and data-updated holds the
+   last real update before it. Until the site publishes again, the card shows data-updated. */
 (function () {
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -232,6 +243,9 @@ footer p{margin:0 0 4px}
         var lm = r.ok && r.headers.get('last-modified');
         if (!lm) return;
         var d = new Date(lm);
+        if (isNaN(d.getTime())) return;
+        var republished = el.getAttribute('data-republished');
+        if (republished && d <= new Date(republished)) d = new Date(el.getAttribute('data-updated'));
         if (isNaN(d.getTime())) return;
         el.textContent = 'Updated ' + fmt(d) + ' ';
         var age = document.createElement('span');

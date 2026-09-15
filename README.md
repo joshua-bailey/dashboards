@@ -10,11 +10,13 @@ reached from one address instead of five bookmarks.
 | Tool | Link | Notes |
 |---|---|---|
 | US Forecast Workbook | https://us-forecast-workbook.onrender.com | Render app, shared password |
-| US GDP Nowcast | https://joshua-bailey.github.io/gdp-nowcast/ | Pages |
-| Nonfarm Payrolls Nowcast | https://joshua-bailey.github.io/nfp-nowcast/ | Pages, tagged **alpha** |
-| FX Forecast Dashboard | https://joshua-bailey.github.io/fx-forecast-dashboard/ | Pages |
+| US GDP Nowcast | https://joshua-bailey.github.io/gdp-nowcast/ | Pages, password |
+| Nonfarm Payrolls Nowcast | https://joshua-bailey.github.io/nfp-nowcast/ | Pages, password, tagged **alpha** |
+| FX Forecast Dashboard | https://joshua-bailey.github.io/fx-forecast-dashboard/ | Pages, password |
+| US Weighted Average Tariff Rate | https://joshua-bailey.github.io/watr-dashboard/ | Pages, password |
 
-The page holds no data and no credentials, only links. It carries `noindex`, so it
+The four Pages dashboards are encrypted and share one password. The hub itself holds no
+data and no credentials, only links, so it is left open. It carries `noindex`, so it
 does not turn up in search results.
 
 ## Last-updated dates
@@ -30,6 +32,19 @@ Each card keeps its cadence text ("Updated weekly") in the HTML as a fallback. T
 script overwrites it only on a successful lookup, so with JavaScript off, a failed
 fetch, or a site moved off this origin, the page degrades to the old wording instead of
 showing a blank or a wrong date.
+
+A site can be rebuilt with no new content. This happened on 15 Sep 2026, when the
+password was added to four dashboards, and to WATR on 8 Sep 2026. Such a card carries
+two attributes:
+
+- `data-republished` is the `Last-Modified` value of that rebuild.
+- `data-updated` is the time of the last real update before it, taken from the site's
+  commit history.
+
+While `Last-Modified` is at or before `data-republished`, the card shows
+`data-updated`. The next real deploy moves `Last-Modified` past it, and the live date
+takes over with no edit here. If a site is rebuilt again without new content, update
+both attributes.
 
 Two limits worth knowing:
 
