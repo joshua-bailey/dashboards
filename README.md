@@ -11,17 +11,18 @@ reached from one address instead of five bookmarks.
 |---|---|---|
 | US Forecast Workbook | https://us-forecast-workbook.onrender.com | Render app, shared password |
 | US GDP Nowcast | https://joshua-bailey.github.io/gdp-nowcast/ | Pages, password |
+| Inflation Nowcast | https://joshua-bailey.github.io/inflation-nowcast-dashboard/ | Pages, password |
 | Nonfarm Payrolls Nowcast | https://joshua-bailey.github.io/nfp-nowcast/ | Pages, password, tagged **alpha** |
 | FX Forecast Dashboard | https://joshua-bailey.github.io/fx-forecast-dashboard/ | Pages, password |
 | US Weighted Average Tariff Rate | https://joshua-bailey.github.io/watr-dashboard/ | Pages, password |
 
-The four Pages dashboards are encrypted and share one password. The hub itself holds no
+The five Pages dashboards are encrypted and share one password. The hub itself holds no
 data and no credentials, only links, so it is left open. It carries `noindex`, so it
 does not turn up in search results.
 
 ## Last-updated dates
 
-The four Pages dashboards are served from the same origin as this hub
+The five Pages dashboards are served from the same origin as this hub
 (`joshua-bailey.github.io`), so the page can issue a same-origin `HEAD` request to each
 and read the `Last-Modified` header, which is when GitHub Pages last published that
 site. This runs on every page load, so the dates cannot go stale, and it needs no API
